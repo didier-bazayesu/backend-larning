@@ -8,5 +8,10 @@ readStream.on('data',(chunk)=>{
   console.log("____________NEW CHUNK_______________________");
   console.log(chunk)
    writeStream.write (`\n NEW CHUNK\n`);
-   writeStream.write(chunk)
+  
 })
+readStream.pipe(writeStream);
+
+writeStream.on('finish',()=>{
+    console.log("Finished writing to the file.");
+})  
