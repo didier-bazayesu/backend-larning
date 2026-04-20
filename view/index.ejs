@@ -1,27 +1,39 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Simple Backend Test</title>
-</head>
-
+<%- include('partials/head') -%>
 <body>
-    <h3><a href="/about-me">About Me</a></h3>
+    <%- include('partials/nav') %>
+        <div class="container">
+            <h2>Blogs</h2>
 
-    <h2>User Form</h2>
+            <% if (blogs && blogs.length > 0) { %>
+                <% blogs.forEach(function(blog) { %>
+                    <article class="blog-card">
+                        <h3 class="blog-title"><%= blog.title %></h3>
+                        <p class="blog-snippet"><%= blog.snippet %></p>
 
-    <form action="/submit" method="POST">
-        <label>Name:</label><br>
-        <input type="text" name="name" value="<%= name %>"><br><br>
+                        <div class="blog-body">
+                            <p><%= blog.body %></p>
+                        </div>
+ 
+                    
+                    </article>
+                <% }) %>
+            <% } else { %>
+                <p>No blogs available.</p>
+            <% } %>
+               
+            
 
-        <label>Email:</label><br>
-        <input type="email" name="email" value="<%= email %>"><br><br>
-
-        <button type="submit">Send</button>
-    </form>
+        </div>
 
 
 
-</body>
 
+    
+    
+
+
+    
+
+        <%- include('partials/footer') %>
+    </body>
 </html>
