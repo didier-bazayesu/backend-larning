@@ -1,0 +1,28 @@
+{
+  "name": "backend-larning",
+  "version": "1.0.0",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/didier-bazayesu/backend-larning.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/didier-bazayesu/backend-larning/issues"
+  },
+  "homepage": "https://github.com/didier-bazayesu/backend-larning#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "lodash": "^4.18.1",
+    "nodemon": "^3.1.14"
+  }
+}
