@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Backend Test</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+    
+        /* Navbar container */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222;
+            padding: 15px 30px;
+        }
+    
+        /* Logo */
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    
+        /* Links container */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+    
+        /* Individual links */
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            transition: 0.3s;
+        }
+    
+        /* Hover effect */
+        .nav-links a:hover {
+            color: #00bcd4;
+        }
+    
+        /* Underline animation */
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #00bcd4;
+            transition: 0.3s;
+        }
+    
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
