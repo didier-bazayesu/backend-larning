@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Blog</title>
     <link rel="stylesheet" href="/styles.css">
-
-   
 </head>
 
 <body class="handle-body">
 
-    <div class="add-blog-container ">
+    <div class="add-blog-container">
         <h1>Add New Blog</h1>
 
-        <form action="/" method="POST">
+        <!-- IMPORTANT: action must match the POST route -->
+        <form action="/new-blog" method="POST">
             <input type="text" name="title" placeholder="Enter blog title" required>
-            <input type="text" name="title" placeholder="Enter blog Snippet" required>
 
-            <textarea name="snippet" rows="5" placeholder="Enter blog snippet" required></textarea>
+            <input type="text" name="snippet" placeholder="Enter blog snippet" required>
+
+            <textarea name="body" rows="5" placeholder="Enter blog body/content" required></textarea>
 
             <button type="submit">Add Blog</button>
         </form>
