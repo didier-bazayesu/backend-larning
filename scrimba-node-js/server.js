@@ -1,42 +1,27 @@
 const { json } = require('body-parser');
 const express = require('express')
-const getDataFromDb =require('./database/db');
+const cors = require('cors')
 const Http = require('http')
 const sendResponse = require('./utilis/sendResponse')
 const filteredData = require('./utilis/filteredData')
 
-   
-
-const serverInfo ={
-  name : `didier'server` ,
-  port : 8000,
-}
-
 const server = express();
+server.use(cors());
 server.get('/', async (req,res)=>{
   res.writeHead(200, {'Content-Type': 'application/json'})
-  const data = await getDataFromDb()
-  sendResponse(res, data)
-})
-
-server.get('/api/continents/:continents',async(req,res)=>{
-   const continent = req.params.continents;
-   console.log(continent)
-   sendResponse(res,await filteredData(continent))
+  res.end(JSON.stringify({message: "Welcome to the API. Use the /api endpoint to get the data."}))
 })
 
 server.get('/api', async (req, res) => {
-
     const queries = req.query;
     console.log(queries);
-    sendResponse(res, await filteredData(queries.continent, queries.country));
+    sendResponse(res, await filteredData(queries));
+    
+    //using URL constructor to parse the url and get the query parameters
+     const urlObj = new URL(req.url, `http://${req.headers.host}`)
+     console.log(urlObj.searchParams.get('continent'), urlObj.searchParams.get('country'))
+    
 });
-
-
-server.get('/api/countries/:country',async(req,res)=>{
-  const country = req.params.country;
-  sendResponse(res,await filteredData(country));
-})
 
 server.use((_,res)=>{
    res.status(404).end(JSON.stringify({error: "not found", message: "The requested route does not exist"}))
