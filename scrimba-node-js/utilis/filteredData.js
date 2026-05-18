@@ -1,20 +1,41 @@
 const getDataFromDb = require('../database/db');
 
-async function filteredData(search,otherSearch) {    
- const data = await getDataFromDb();
+async function filteredData(search) {
 
-    if(search && otherSearch){
-        return data.filter(
-            (item) =>       (item.continent.toLowerCase() === search.toLowerCase() && item.country.toLowerCase() === otherSearch.toLowerCase()) ||
-            (item.continent.toLowerCase() === otherSearch.toLowerCase() && item.country.toLowerCase() === search.toLowerCase())
-        );
+    const { continent, country, is_open_to_public } = search;
+
+    const data = await getDataFromDb();
+
+    if (Object.keys(search).length === 0) {
+        return data;
     }
 
-    return data.filter(
-    (item) =>
-        item.continent.toLowerCase() === search.toLowerCase() ||
-        item.country.toLowerCase() === search.toLowerCase()
-    );
+    return data.filter(item => {
+
+        if (
+            country &&
+            item.country.toLowerCase() !== country.toLowerCase()
+        ) {
+            return false;
+        }
+
+        if (
+            continent &&
+            item.continent.toLowerCase() !== continent.toLowerCase()
+        ) {
+            return false;
+        }
+
+        if (
+            is_open_to_public &&
+            item.is_open_to_public.toString().toLowerCase() !==
+            is_open_to_public.toLowerCase()
+        ) {
+            return false;
+        }
+
+        return true;
+    });
 }
 
 module.exports = filteredData;
