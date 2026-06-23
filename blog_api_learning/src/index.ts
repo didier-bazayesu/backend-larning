@@ -1,7 +1,7 @@
-import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
-import swaggerspec from './controllers/swagger.js';
+import express from 'express';
+import swaggerspec from './swagger.js';
 import swaggerUi from 'swagger-ui-express';
 import authRoutes from './routes/authRoutes.js';
 import connectDB from './config/database.js';

@@ -2,10 +2,10 @@
   "name": "backend-larning",
   "version": "1.0.0",
   "type": "module",
-  "main": "backend.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node index.js",
     "build": "tsc -p tsconfig.json",
     "start:dist": "node ./dist/index.js",
     "dev": "nodemon --exec node --loader ts-node/esm src/index.ts"
@@ -43,6 +43,7 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.0.0",
+    "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"

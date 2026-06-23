@@ -10,7 +10,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: "http://localhost:3000",
       },
     ],
     components: {
@@ -26,10 +26,8 @@ const options = {
     },
   },
 
-  // At runtime we load compiled files under dist; when this file is compiled
-  // it will be located in dist/controllers so use a path relative to that.
-    // Use dist path so swagger-jsdoc (run from project root) finds compiled routes
-    apis: ["dist/routes/*.js"],
+  // change this
+  apis: ["./src/routes/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

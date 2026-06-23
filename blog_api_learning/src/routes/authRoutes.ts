@@ -2,36 +2,80 @@ import Router from "express";
 import authController from "../controllers/authController.js";
 
 const router = Router();
+
 /**
  * @swagger
- * @openapi: 3.0.0
- * info:
- *  title: Blog API
- * version: 1.0.0
- * description: A simple Blog API application
- * servers:
- * - url: http://localhost:3000
- * security:
- *   - bearerAuth: []
- * components:  
- *  securitySchemes:
- *  
- *  
- *  
  * tags:
  *   name: Auth
  *   description: Authentication endpoints
  */
-router.post("/register", authController.register);
+
 
 /**
-    * @swagger
-    * @openapi: 3.0.0
-    * info:
-    *  title: Blog API
-    * version: 1.0.0
-    *        
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Didier Bazayesu
+ *               email:
+ *                 type: string
+ *                 example: didier@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *       400:
+ *         description: User already exists or invalid data
+ */
+router.post("/register", authController.register);
+
+
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Login user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: didier@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Invalid email or password
  */
 router.post("/login", authController.login);
+
 
 export default router;
