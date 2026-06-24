@@ -1,5 +1,7 @@
 import swaggerJsdoc from "swagger-jsdoc";
 
+const port = process.env["PORT"] || 5000;
+
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -10,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: `http://localhost:${port}`,
       },
     ],
     components: {
@@ -25,11 +27,7 @@ const options = {
       },
     },
   },
-
-  // At runtime we load compiled files under dist; when this file is compiled
-  // it will be located in dist/controllers so use a path relative to that.
-    // Use dist path so swagger-jsdoc (run from project root) finds compiled routes
-    apis: ["dist/routes/*.js"],
+  apis: ["src/routes/*.ts"],  // ← use src for dev, no build needed
 };
 
 const swaggerSpec = swaggerJsdoc(options);

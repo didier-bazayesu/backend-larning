@@ -5,6 +5,7 @@ import User from "../models/user.js";
 
 // Register a new user in the database
  async function register(req: Request, res: Response) {
+        console.log("==> register hit, body:", req.body); 
     try {
         const { name, email, password } = req.body as {
             name: string;
@@ -22,15 +23,27 @@ import User from "../models/user.js";
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
-        const user = await User.create({
-            name,
-            email,
-            password: passwordHash,
-        });
+        let user;
+        try {
+            user = await User.create({
+                name,
+                email,
+                password: passwordHash,
+            });
+        } catch (dbErr) {
+            console.error('Error creating user in DB:', dbErr);
+            return res.status(500).json({ message: 'Database error while creating user' });
+        }
+
+        const jwtSecret = process.env["JWT_SECRET"] as string | undefined;
+        if (!jwtSecret) {
+            console.error('JWT_SECRET is not defined')
+            return res.status(500).json({ message: "Server configuration error: JWT_SECRET not set" });
+        }
 
         const token = jwt.sign(
             { userId: user._id },
-            (process.env["JWT_SECRET"] as string) || "",
+            jwtSecret,
             { expiresIn: "3d" }
         );
 
@@ -44,7 +57,7 @@ import User from "../models/user.js";
      try{
         const {email, password} = req.body as { email : string , password: string }
         if(!email || !password){
-            return res.status(4004).json({message : "All fields are required"})
+            return res.status(400).json({message : "All fields are required"})
         }
 
         const user = await User.findOne({
@@ -55,7 +68,13 @@ import User from "../models/user.js";
         const ok = await bcrypt.compare(password, user.password)
         if(!ok) { return res.status(401).json({message : "Invalid credentials"}) }
 
-        const token = jwt.sign({ userId: user._id, name: user.name, email: user.email }, process.env["JWT_SECRET"] as string, { expiresIn: "3d" });
+        const jwtSecret = process.env["JWT_SECRET"] as string | undefined;
+        if (!jwtSecret) {
+            console.error('JWT_SECRET is not defined')
+            return res.status(500).json({ message: "Server configuration error: JWT_SECRET not set" });
+        }
+
+        const token = jwt.sign({ userId: user._id, name: user.name, email: user.email }, jwtSecret, { expiresIn: "3d" });
 
         return res.status(200).json({ token, user });
 
