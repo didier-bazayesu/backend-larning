@@ -49,6 +49,22 @@ app.post('/todo', (req, res)=>{
 })
 
 
+const conversationRate = {
+    usd : 1300,
+    eur: 1400,
+    gbp: 1500
+
+}
+
+app.post('/convert', (req, res )=> {
+    const query = req.query;
+    const convertedAmount = Number(query.amount ) * conversationRate[query.currency]
+    return res.status(200).json({message : "converted result", input : query , unitCost : {unit :"RWF",cost: conversationRate[query.currency]}, total: convertedAmount})
+   
+})
+
+
+
 app.listen(6000, ()=> {
     console.log("The server is running on the port 6000")
 })
